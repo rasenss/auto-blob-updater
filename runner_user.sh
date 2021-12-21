@@ -45,8 +45,8 @@ extract() {
 
 build_conf() {
     mkdir repo && cd repo
-    git config --global user.email "dyneteve@pixelexperience.org"
-    git config --global user.name "Dyneteve"
+    git config --global user.email "rasuen27@gmail.com"
+    git config --global user.name "_.rasend"
 }
 
 init_repo() {
@@ -57,9 +57,9 @@ init_repo() {
 
 dt() {
     echo "Cloning device tree......."
-    git clone https://github.com/PixelExperience-Devices/device_xiaomi_violet -b ten device/xiaomi/violet > /dev/null 2>&1
-    git clone https://github.com/PixelExperience-Devices/vendor_xiaomi -b ten vendor/xiaomi > /dev/null 2>&1
-    cd device/xiaomi/violet
+    git clone https://github.com/rasenss/android_device_xiaomi_ginkgo -b 12 device/xiaomi/ginkgo > /dev/null 2>&1
+    git clone https://github.com/rasenss/android_vendor_xiaomi_ginkgo -b arrow-12.0 vendor/xiaomi/ginkgo > /dev/null 2>&1
+    cd device/xiaomi/ginkgo
 }
 
 gen_blob() {
@@ -67,22 +67,22 @@ gen_blob() {
     echo "Blobs Generated!"
 }
 
-violet_patches() {
+ginkgo_patches() {
     git clone https://Dyneteve:${API_KEY}@github.com/Dyneteve/patches.git patches > /dev/null 2>&1
-    cp patches/patch.sh $CURR_DIR/repo/vendor/xiaomi/violet/patch.sh
+    cp patches/patch.sh $CURR_DIR/repo/vendor/xiaomi/ginkgo/patch.sh
 }
 
 push_vendor() {
-    cd $CURR_DIR/repo/vendor/xiaomi/violet
+    cd $CURR_DIR/repo/vendor/xiaomi/ginkgo
     git remote rm origin
-    git remote add origin https://Dyneteve:${API_KEY}@github.com/PixelExperience-Devices/vendor_xiaomi.git
+    git remote add origin https://rasenss:${API_KEY}@github.com/rasenss/android_vendor_xiaomi_ginkgo.git
     # Patch my stuff
     bash patch.sh && rm patch.sh
     # For Dyneteve only
     git add .
-    git commit -m "violet: Re-gen blobs from MIUI $(cat /tmp/version)" --signoff
-    git checkout -B ten
-    git push origin ten
+    git commit -m "ginkgo: Re-gen blobs from MIUI $(cat /tmp/version)" --signoff
+    git checkout -B arrow-12.0
+    git push origin arrow-12.0
     echo "Job Successful!"
 }
 
