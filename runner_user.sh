@@ -68,7 +68,7 @@ gen_blob() {
 }
 
 ginkgo_patches() {
-    git clone https://Dyneteve:${API_KEY}@github.com/Dyneteve/patches.git patches > /dev/null 2>&1
+    git clone https://rasenss:${API_KEY}@github.com/rasenss/patches.git patches > /dev/null 2>&1
     cp patches/patch.sh $CURR_DIR/repo/vendor/xiaomi/ginkgo/patch.sh
 }
 
